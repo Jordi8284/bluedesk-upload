@@ -174,11 +174,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903131256247_InitialCreate.cs" />
+    <Compile Include="Migrations\201903131256247_InitialCreate.Designer.cs">
+      <DependentUpon>201903131256247_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903131352030_controllers.cs" />
+    <Compile Include="Migrations\201903131352030_controllers.Designer.cs">
+      <DependentUpon>201903131352030_controllers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Download.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -252,8 +263,25 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Download\Create.cshtml" />
+    <Content Include="Views\Download\Delete.cshtml" />
+    <Content Include="Views\Download\Details.cshtml" />
+    <Content Include="Views\Download\Edit.cshtml" />
+    <Content Include="Views\Download\Index.cshtml" />
+    <Content Include="Views\Upload\Create.cshtml" />
+    <Content Include="Views\Upload\Delete.cshtml" />
+    <Content Include="Views\Upload\Details.cshtml" />
+    <Content Include="Views\Upload\Edit.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903131256247_InitialCreate.resx">
+      <DependentUpon>201903131256247_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903131352030_controllers.resx">
+      <DependentUpon>201903131352030_controllers.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -29,5 +29,9 @@ namespace BluedeskUpload.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<BluedeskUpload.Models.Download> Downloads { get; set; }
+
+        public System.Data.Entity.DbSet<BluedeskUpload.Models.Upload> Uploads { get; set; }
     }
 }
