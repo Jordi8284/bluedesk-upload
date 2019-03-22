@@ -15,8 +15,45 @@ namespace BluedeskUpload.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Download
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "bedrijfsnaam_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "naam_desc" : "Naam";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "Email";
+            var uploads = from u in db.Uploads
+                          select u;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                uploads = uploads.Where(s => s.Omschrijving.Contains(searchString));
+                uploads = uploads.Where(s => s.Bedrijfsnaam.Contains(searchString));
+                uploads = uploads.Where(s => s.Naam.Contains(searchString));
+                uploads = uploads.Where(s => s.Email.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "bedrijfsnaam_desc":
+                    uploads = uploads.OrderByDescending(u => u.Bedrijfsnaam);
+                    break;
+                case "Date":
+                    uploads = uploads.OrderBy(u => u.Datum);
+                    break;
+                case "date_desc":
+                    uploads = uploads.OrderByDescending(u => u.Datum);
+                    break;
+                case "naam_desc":
+                    uploads = uploads.OrderByDescending(u => u.Naam);
+                    break;
+                case "email_desc":
+                    uploads = uploads.OrderByDescending(u => u.Email);
+                    break;
+                default:
+                    uploads = uploads.OrderBy(u => u.Bedrijfsnaam);
+                    break;
+            }
+
             var downloads = db.Downloads.Include(d => d.Upload);
             return View(downloads.ToList());
         }
