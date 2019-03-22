@@ -7,13 +7,13 @@ namespace BluedeskUpload.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class controllers : IMigrationMetadata
+    public sealed partial class database : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(controllers));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(database));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903131352030_controllers"; }
+            get { return "201903131423104_database"; }
         }
         
         string IMigrationMetadata.Source
