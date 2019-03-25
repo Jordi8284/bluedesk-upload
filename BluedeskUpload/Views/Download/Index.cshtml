@@ -9,25 +9,71 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("SearchString")
+        <input type="submit" value="Zoek" id="zoek" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
+            @Html.ActionLink("Datum", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Upload.Bestand)
+        </th>
+        <th>
+            @Html.ActionLink("Omschrijving", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Bedrijfsnaam", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Naam", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Upload.Telefoon)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Upload.Datum)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Upload.Bestand)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DownloadId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DownloadId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DownloadId })
+            @Html.DisplayFor(modelItem => item.Upload.Omschrijving)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Upload.Bedrijfsnaam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Upload.Naam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Upload.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Upload.Telefoon)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.DownloadId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.DownloadId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.DownloadId })
         </td>
     </tr>
-}
+    }
 
 </table>
