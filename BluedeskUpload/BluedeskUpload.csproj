@@ -185,15 +185,16 @@
     <Compile Include="Migrations\201903131256247_InitialCreate.Designer.cs">
       <DependentUpon>201903131256247_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903131423104_database.cs" />
-    <Compile Include="Migrations\201903131423104_database.Designer.cs">
-      <DependentUpon>201903131423104_database.cs</DependentUpon>
+    <Compile Include="Migrations\201903141103100_file.cs" />
+    <Compile Include="Migrations\201903141103100_file.Designer.cs">
+      <DependentUpon>201903141103100_file.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Download.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UploadView.cs" />
     <Compile Include="Models\Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -203,15 +204,19 @@
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\About.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Contact.css" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\Upload.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Bluedesk logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\BluedeskUpload - Web Deploy.pubxml" />
@@ -278,8 +283,8 @@
     <EmbeddedResource Include="Migrations\201903131256247_InitialCreate.resx">
       <DependentUpon>201903131256247_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903131423104_database.resx">
-      <DependentUpon>201903131423104_database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903141103100_file.resx">
+      <DependentUpon>201903141103100_file.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

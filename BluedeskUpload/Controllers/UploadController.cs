@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,7 @@ namespace BluedeskUpload.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Upload
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, HttpPostedFileBase postedFile)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "omschrijving_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -45,6 +46,18 @@ namespace BluedeskUpload.Controllers
                     break;
             }
 
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                ViewBag.Message = "File uploaded successfully.";
+            }
+
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var currentUser = manager.FindById(User.Identity.GetUserId());
             return View(uploads.Where(c => c.Gebruiker.Id == currentUser.Id).ToList());
@@ -68,6 +81,7 @@ namespace BluedeskUpload.Controllers
         // GET: Upload/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
@@ -76,11 +90,25 @@ namespace BluedeskUpload.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload)
+        public ActionResult Create([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload, HttpPostedFileBase postedFile)
         {
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var currentUser = manager.FindById(User.Identity.GetUserId());
             upload.Gebruiker = currentUser;
+
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                ViewBag.Message = "File uploaded successfully.";
+            }
+
+
 
             if (ModelState.IsValid)
             {

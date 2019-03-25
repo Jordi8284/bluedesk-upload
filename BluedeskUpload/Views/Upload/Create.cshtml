@@ -1,4 +1,4 @@
-﻿@model BluedeskUpload.Models.Upload
+﻿@model BluedeskUpload.Models.UploadView
 
 @{
     ViewBag.Title = "Create";
@@ -7,10 +7,17 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <span>Selecteer bestand:</span>
+    <input type="file" class="multiple" name="postedFile" multiple />
+    @*<hr />
+    <input type="submit" value="Upload" />
+    <br />*@
+    <span style="color:green">@ViewBag.Message</span>
+
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Upload</h4>
         <hr />
@@ -86,3 +93,4 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<link href="~/Content/Upload.css" rel="stylesheet" type="text/css" />

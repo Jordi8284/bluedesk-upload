@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BluedeskUpload.Models
 {
-    public class Upload
+    public class UploadView
     {
         [Key]
         public int UploadId { get; set; }
