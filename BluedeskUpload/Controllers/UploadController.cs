@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -76,11 +77,24 @@ namespace BluedeskUpload.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload)
+        public ActionResult Create([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload, HttpPostedFileBase postedFile)
         {
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                ViewBag.Message = "File uploaded successfully.";
+            }
+
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var currentUser = manager.FindById(User.Identity.GetUserId());
             upload.Gebruiker = currentUser;
+            upload.Bestand = postedFile.FileName;
 
             if (ModelState.IsValid)
             {
