@@ -9,13 +9,6 @@
 
 @using (Html.BeginForm("Create", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <span>Selecteer bestand:</span>
-    <input type="file" class="multiple" name="postedFile" multiple />
-    @*<hr />
-    <input type="submit" value="Upload" />
-    <br />*@
-    <span style="color:green">@ViewBag.Message</span>
-
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
