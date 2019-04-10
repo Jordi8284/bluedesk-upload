@@ -128,8 +128,6 @@ namespace BluedeskUpload.Controllers
                 ViewBag.Message = "File uploaded successfully.";
             }
 
-
-
             if (ModelState.IsValid)
             {
                 db.Uploads.Add(upload);
