@@ -237,6 +237,7 @@
     <Content Include="Uploads\Deelvraag 1.docx" />
     <Content Include="Uploads\Eind werkstuk Silicon Valley.docx" />
     <Content Include="Uploads\WildWanderlust-Personal.ttf" />
+    <Content Include="src\index.less" />
     <Content Include="Views\Download\Download.cshtml" />
     <TypeScriptCompile Include="src\index.ts" />
     <Content Include="Web.config">

@@ -48,6 +48,12 @@ namespace BluedeskUpload.Controllers
             return View(downloads.ToList());
         }
 
+        // GET: Back to index
+        public ActionResult BackToIndex(int? id, Download download)
+        {
+            return RedirectToAction("Index", "Download");
+        }
+
         // GET: Download/Details/5
         public ActionResult Details(int? id)
         {
