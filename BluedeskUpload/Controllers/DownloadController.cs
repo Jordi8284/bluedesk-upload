@@ -16,8 +16,34 @@ namespace BluedeskUpload.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Download
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "omschrijving_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var uploads = from u in db.Downloads
+                          select u;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                uploads = uploads.Where(s => s.Upload.Omschrijving.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "omschrijving_desc":
+                    uploads = uploads.OrderByDescending(u => u.Upload.Omschrijving);
+                    break;
+                case "Date":
+                    uploads = uploads.OrderBy(u => u.Upload.Datum);
+                    break;
+                case "date_desc":
+                    uploads = uploads.OrderByDescending(u => u.Upload.Datum);
+                    break;
+                default:
+                    uploads = uploads.OrderBy(u => u.Upload.Omschrijving);
+                    break;
+            }
+
             var downloads = db.Downloads.Include(d => d.Upload);
             return View(downloads.ToList());
         }
@@ -29,12 +55,27 @@ namespace BluedeskUpload.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Download download = db.Downloads.Find(id);
+            Download download = db.Downloads.Where(g => g.DownloadId == id).Include(g => g.Upload).FirstOrDefault();
             if (download == null)
             {
                 return HttpNotFound();
             }
             return View(download);
+        }
+
+        // GET: Upload
+        public ActionResult Download(int? id, Upload upload, HttpPostedFileBase postedFile)
+        {
+            //Download download = db.Downloads.Where(g => g.DownloadId == id).Include(g => g.Upload.Bestand).FirstOrDefault();
+
+            string fullPath = Request.MapPath("~/Uploads/" + upload.Bestand);
+
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+
+            return View();
         }
 
         // GET: Download/Create
@@ -102,7 +143,7 @@ namespace BluedeskUpload.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Download download = db.Downloads.Find(id);
+            Download download = db.Downloads.Where(g => g.DownloadId == id).Include(g => g.Upload).FirstOrDefault();
             if (download == null)
             {
                 return HttpNotFound();

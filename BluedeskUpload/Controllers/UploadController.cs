@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using BluedeskUpload.Models;
@@ -61,6 +62,12 @@ namespace BluedeskUpload.Controllers
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var currentUser = manager.FindById(User.Identity.GetUserId());
             return View(uploads.Where(c => c.Gebruiker.Id == currentUser.Id).ToList());
+        }
+
+        // GET: Back to index
+        public ActionResult BackToIndex(int? id, Upload upload)
+        {
+            return RedirectToAction("Index", "Upload");
         }
 
         // GET: Upload/Details/5
@@ -153,8 +160,22 @@ namespace BluedeskUpload.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload)
+        public ActionResult Edit([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload, HttpPostedFileBase postedFile)
         {
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                ViewBag.Message = "File uploaded successfully.";
+            }
+
+            upload.Bestand = postedFile.FileName;
+
             if (ModelState.IsValid)
             {
                 db.Entry(upload).State = EntityState.Modified;
@@ -197,6 +218,22 @@ namespace BluedeskUpload.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public static string EncryptDecrypt(string plainText, int encryptionKey)
+        {
+            // Encode/Decode met encryptionKey = 13
+            var toEncrypt = "Dit is een test";
+            var encrypted = EncryptDecrypt(toEncrypt, 13);
+            var original = EncryptDecrypt(encrypted, 13);
+            var outStringBuild = new StringBuilder(plainText.Length);
+
+            for (int iCount = 0; iCount < plainText.Length; iCount++)
+            {
+                outStringBuild.Append((char)(plainText[iCount] ^ encryptionKey));
+            }
+
+            return outStringBuild.ToString();
         }
     }
 }

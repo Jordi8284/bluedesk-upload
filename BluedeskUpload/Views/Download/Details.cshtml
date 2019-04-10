@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Upload.Datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Upload.Datum)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Upload.Bestand)
         </dt>
 
@@ -18,11 +26,53 @@
             @Html.DisplayFor(model => model.Upload.Bestand)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Upload.Omschrijving)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Upload.Omschrijving)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Upload.Bedrijfsnaam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Upload.Bedrijfsnaam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Upload.Naam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Upload.Naam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Upload.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Upload.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Upload.Telefoon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Upload.Telefoon)
+        </dd>
+
     </dl>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.DownloadId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    <input type="button" value="Download" id="download" onclick="location.href='@Url.Action(" Download", "Download" )'" />
 </p>
 
 
