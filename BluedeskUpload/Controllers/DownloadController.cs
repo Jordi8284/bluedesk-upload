@@ -70,18 +70,23 @@ namespace BluedeskUpload.Controllers
         }
 
         // GET: Upload
-        public ActionResult Download(int? id, Upload upload, HttpPostedFileBase postedFile)
+        public ActionResult Download(int? id)
         {
-            //Download download = db.Downloads.Where(g => g.DownloadId == id).Include(g => g.Upload.Bestand).FirstOrDefault();
+            Download download = db.Downloads.Find(id);
+            Upload upload = db.Uploads.Find(download.UploadId);
 
             string fullPath = Request.MapPath("~/Uploads/" + upload.Bestand);
 
-            if (System.IO.File.Exists(fullPath))
-            {
-                System.IO.File.Delete(fullPath);
-            }
+            //if (System.IO.File.Exists(fullPath))
+            //{
+            //    System.IO.File.Delete(fullPath);
+            //}
 
-            return View();
+            // Get the contentType of file
+            var mimeType = MimeMapping.GetMimeMapping(download.Upload.Bestand);
+
+            // Return the file for download
+            return File(fullPath, mimeType, download.Upload.Bestand);
         }
 
         // GET: Download/Create
