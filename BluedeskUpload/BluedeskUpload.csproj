@@ -239,6 +239,7 @@
     <Content Include="Uploads\WildWanderlust-Personal.ttf" />
     <Content Include="src\index.less" />
     <Content Include="Views\Download\Download.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <TypeScriptCompile Include="src\index.ts" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -347,7 +348,7 @@
        Other similar extension points exist, see Microsoft.Common.targets. -->
   <Target Name="BeforeBuild">
     <ItemGroup>
-        <Content Include="**\*.less" />
+      <Content Include="**\*.less" />
     </ItemGroup>
   </Target>
   <!-- <Target Name="AfterBuild">
