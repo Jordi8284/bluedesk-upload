@@ -28,6 +28,7 @@ namespace BluedeskUpload.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
+                ViewBag.SearchString = searchString;
                 uploads = uploads.Where(s => s.Omschrijving.Contains(searchString));
             }
 

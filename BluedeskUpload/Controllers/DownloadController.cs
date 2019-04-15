@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using BluedeskUpload.Models;
 
 namespace BluedeskUpload.Controllers
@@ -71,24 +70,23 @@ namespace BluedeskUpload.Controllers
         }
 
         // GET: Upload
-        public ActionResult Download(int? id, Upload upload, HttpPostedFileBase postedFile, object sender)
+        public ActionResult Download(int? id)
         {
-            //Download download = db.Downloads.Where(g => g.DownloadId == id).Include(g => g.Upload.Bestand).FirstOrDefault();
+            Download download = db.Downloads.Find(id);
+            Upload upload = db.Uploads.Find(download.UploadId);
 
-            //string fullPath = Request.MapPath("~/Uploads/" + upload.Bestand);
+            string fullPath = Request.MapPath("~/Uploads/" + upload.Bestand);
 
             //if (System.IO.File.Exists(fullPath))
             //{
             //    System.IO.File.Delete(fullPath);
             //}
 
-            string filePath = (sender as LinkButton).CommandArgument;
-            Response.ContentType = ContentType;
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
-            Response.WriteFile(filePath);
-            Response.End();
+            // Get the contentType of file
+            var mimeType = MimeMapping.GetMimeMapping(download.Upload.Bestand);
 
-            return View();
+            // Return the file for download
+            return File(fullPath, mimeType, download.Upload.Bestand);
         }
 
         // GET: Download/Create

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+
 }
 
 <h2>Index</h2>
@@ -78,4 +79,7 @@
 
 </table>
 
-<input type="button" value="Back to list" id="download" onclick="location.href='@Url.Action("BackToIndex", "Upload")'" />
+@if (!string.IsNullOrWhiteSpace(ViewBag.SearchString))
+{
+    <input type="button" value="Back to list" id="download" onclick="location.href='@Url.Action("BackToIndex", "Upload")'" />
+}
