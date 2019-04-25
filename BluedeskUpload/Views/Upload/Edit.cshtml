@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm("Edit", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Datum, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Datum, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Datum, new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;" })
                 @Html.ValidationMessageFor(model => model.Datum, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,8 +36,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Bestand, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="postedFile" />
-                <span style="color:green">@ViewBag.Message</span>
+                @Html.TextBoxFor(model => model.Bestand, new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;" })
+                @Html.ValidationMessageFor(model => model.Bestand, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -52,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Bedrijfsnaam, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Bedrijfsnaam, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Bedrijfsnaam, new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;" })
                 @Html.ValidationMessageFor(model => model.Bedrijfsnaam, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Naam, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Naam, new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;" })
                 @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -68,7 +68,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Email, new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;" })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Telefoon, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Telefoon, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Telefoon, new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;" })
                 @Html.ValidationMessageFor(model => model.Telefoon, "", new { @class = "text-danger" })
             </div>
         </div>

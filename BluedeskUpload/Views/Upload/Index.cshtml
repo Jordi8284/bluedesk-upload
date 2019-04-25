@@ -15,7 +15,7 @@
 {
     <p>
         @Html.TextBox("SearchString")
-        <input type="submit" value="Zoek" id="zoek" />
+        <input type="submit" value="Search" id="zoek" />
     </p>
 }
 
@@ -25,10 +25,10 @@
             @Html.ActionLink("Datum", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Bestand)
+            @Html.ActionLink("File", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.ActionLink("Omschrijving", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.DisplayNameFor(model => model.Omschrijving)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Bedrijfsnaam)
@@ -81,5 +81,5 @@
 
 @if (!string.IsNullOrWhiteSpace(ViewBag.SearchString))
 {
-    <input type="button" value="Back to list" id="download" onclick="location.href='@Url.Action("BackToIndex", "Upload")'" />
+    <input type="button" value="Back to list" id="back" onclick="location.href='@Url.Action("BackToIndex", "Upload")'" />
 }

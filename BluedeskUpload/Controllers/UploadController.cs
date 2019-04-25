@@ -28,13 +28,13 @@ namespace BluedeskUpload.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.SearchString = searchString;
-                uploads = uploads.Where(s => s.Omschrijving.Contains(searchString));
+                uploads = uploads.Where(s => s.Bestand.Contains(searchString) || s.Omschrijving.Contains(searchString) || s.Bedrijfsnaam.Contains(searchString) || s.Naam.Contains(searchString) || s.Email.Contains(searchString) || s.Telefoon.Contains(searchString));
             }
 
             switch (sortOrder)
             {
                 case "omschrijving_desc":
-                    uploads = uploads.OrderByDescending(u => u.Omschrijving);
+                    uploads = uploads.OrderByDescending(u => u.Bestand);
                     break;
                 case "Date":
                     uploads = uploads.OrderBy(u => u.Datum);
@@ -43,7 +43,7 @@ namespace BluedeskUpload.Controllers
                     uploads = uploads.OrderByDescending(u => u.Datum);
                     break;
                 default:
-                    uploads = uploads.OrderBy(u => u.Omschrijving);
+                    uploads = uploads.OrderBy(u => u.Bestand);
                     break;
             }
 
@@ -107,7 +107,8 @@ namespace BluedeskUpload.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(postedFile.FileName, 13)));
+                postedFile.SaveAs(path + Path.GetFileName(filename));
                 ViewBag.Message = "File uploaded successfully.";
             }
 
@@ -124,7 +125,8 @@ namespace BluedeskUpload.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(postedFile.FileName, 13)));
+                postedFile.SaveAs(path + Path.GetFileName(filename));
                 ViewBag.Message = "File uploaded successfully.";
             }
 
@@ -134,6 +136,7 @@ namespace BluedeskUpload.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
 
             return View(upload);
         }
@@ -158,21 +161,8 @@ namespace BluedeskUpload.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload, HttpPostedFileBase postedFile)
+        public ActionResult Edit([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload)
         {
-            if (postedFile != null)
-            {
-                string path = Server.MapPath("~/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-                ViewBag.Message = "File uploaded successfully.";
-            }
-
-            upload.Bestand = postedFile.FileName;
 
             if (ModelState.IsValid)
             {
@@ -208,7 +198,6 @@ namespace BluedeskUpload.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -216,22 +205,6 @@ namespace BluedeskUpload.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public static string EncryptDecrypt(string plainText, int encryptionKey)
-        {
-            // Encode/Decode met encryptionKey = 13
-            var toEncrypt = "Dit is een test";
-            var encrypted = EncryptDecrypt(toEncrypt, 13);
-            var original = EncryptDecrypt(encrypted, 13);
-            var outStringBuild = new StringBuilder(plainText.Length);
-
-            for (int iCount = 0; iCount < plainText.Length; iCount++)
-            {
-                outStringBuild.Append((char)(plainText[iCount] ^ encryptionKey));
-            }
-
-            return outStringBuild.ToString();
         }
     }
 }

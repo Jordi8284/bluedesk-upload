@@ -10,7 +10,7 @@ namespace BluedeskUpload.Models
     {
         [Key]
         public int DownloadId { get; set; }
-
+        public ApplicationUser Gebruiker { get; set; }
         public int UploadId { get; set; }
         public Upload Upload { get; set; }
     }
