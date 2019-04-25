@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const Merge = require("webpack-merge");
 const CommonConfig = require("./webpack.common.js");
 
-console.log('dirname', __dirname);
+//console.log('dirname', __dirname);
 
 module.exports = Merge(CommonConfig, {
     devtool: "inline-source-map",
@@ -25,11 +25,9 @@ module.exports = Merge(CommonConfig, {
             // All css files will be handled here
             {
                 test: /\.css$/,
-                use: extractPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
+                use: ["style-loader", "css-loader"]
             },
+        
 
             // All files with ".less" will be handled and transpiled to css
             {

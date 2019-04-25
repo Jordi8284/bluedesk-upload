@@ -201,6 +201,18 @@
     <Compile Include="Migrations\201903271442587_date.Designer.cs">
       <DependentUpon>201903271442587_date.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904230755050_foutmelding.cs" />
+    <Compile Include="Migrations\201904230755050_foutmelding.Designer.cs">
+      <DependentUpon>201904230755050_foutmelding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904240808272_logo.cs" />
+    <Compile Include="Migrations\201904240808272_logo.Designer.cs">
+      <DependentUpon>201904240808272_logo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904241316233_logo2.cs" />
+    <Compile Include="Migrations\201904241316233_logo2.Designer.cs">
+      <DependentUpon>201904241316233_logo2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Download.cs" />
@@ -216,7 +228,7 @@
     <Content Include="dist\bundle.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Images\Bluedesk logo.png" />
+    <Content Include="Images\Bluedesklogo.png" />
     <Content Include="package.json" />
     <Content Include="package-lock.json" />
     <Content Include="Uploads\14041_plattegrond-bospop-2011_small.gif" />
@@ -245,6 +257,7 @@
     <Content Include="Uploads\WildWanderlust-Personal.ttf" />
     <Content Include="src\index.less" />
     <Content Include="Views\Download\Download.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <TypeScriptCompile Include="src\index.ts" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -302,6 +315,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903271442587_date.resx">
       <DependentUpon>201903271442587_date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904230755050_foutmelding.resx">
+      <DependentUpon>201904230755050_foutmelding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904240808272_logo.resx">
+      <DependentUpon>201904240808272_logo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904241316233_logo2.resx">
+      <DependentUpon>201904241316233_logo2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
