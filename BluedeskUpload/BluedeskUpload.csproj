@@ -189,27 +189,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903131256247_InitialCreate.cs" />
-    <Compile Include="Migrations\201903131256247_InitialCreate.Designer.cs">
-      <DependentUpon>201903131256247_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903141103100_file.cs" />
-    <Compile Include="Migrations\201903141103100_file.Designer.cs">
-      <DependentUpon>201903141103100_file.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903271442587_date.cs" />
-    <Compile Include="Migrations\201903271442587_date.Designer.cs">
-      <DependentUpon>201903271442587_date.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Download.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\UploadView.cs" />
     <Compile Include="Models\Upload.cs" />
+    <Compile Include="Models\UploadView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tools\Encryption.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="dist\89889688147bd7575d6327160d64e760.svg" />
@@ -294,17 +283,6 @@
     <Content Include="Views\Upload\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903131256247_InitialCreate.resx">
-      <DependentUpon>201903131256247_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903141103100_file.resx">
-      <DependentUpon>201903141103100_file.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903271442587_date.resx">
-      <DependentUpon>201903271442587_date.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -312,7 +290,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

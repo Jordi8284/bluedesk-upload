@@ -5,9 +5,12 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using BluedeskUpload.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BluedeskUpload.Controllers
 {
@@ -20,32 +23,33 @@ namespace BluedeskUpload.Controllers
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "omschrijving_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            var uploads = from u in db.Downloads
-                          select u;
+            var downloads = db.Downloads.Include(g => g.Upload);
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                uploads = uploads.Where(s => s.Upload.Omschrijving.Contains(searchString));
+                ViewBag.SearchString = searchString;
+                downloads = downloads.Where(s => s.Upload.Bestand.Contains(searchString) || s.Upload.Omschrijving.Contains(searchString) || s.Upload.Bedrijfsnaam.Contains(searchString) || s.Upload.Naam.Contains(searchString) || s.Upload.Email.Contains(searchString) || s.Upload.Telefoon.Contains(searchString));
             }
 
             switch (sortOrder)
             {
                 case "omschrijving_desc":
-                    uploads = uploads.OrderByDescending(u => u.Upload.Omschrijving);
+                    downloads = downloads.OrderByDescending(u => u.Upload.Bestand);
                     break;
                 case "Date":
-                    uploads = uploads.OrderBy(u => u.Upload.Datum);
+                    downloads = downloads.OrderBy(u => u.Upload.Datum);
                     break;
                 case "date_desc":
-                    uploads = uploads.OrderByDescending(u => u.Upload.Datum);
+                    downloads = downloads.OrderByDescending(u => u.Upload.Datum);
                     break;
                 default:
-                    uploads = uploads.OrderBy(u => u.Upload.Omschrijving);
+                    downloads = downloads.OrderBy(u => u.Upload.Bestand);
                     break;
             }
 
-            var downloads = db.Downloads.Include(d => d.Upload);
-            return View(downloads.ToList());
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            return View(downloads.Where(c => c.Gebruiker.Id == currentUser.Id).ToList());
         }
 
         // GET: Back to index
@@ -74,13 +78,8 @@ namespace BluedeskUpload.Controllers
         {
             Download download = db.Downloads.Find(id);
             Upload upload = db.Uploads.Find(download.UploadId);
-
-            string fullPath = Request.MapPath("~/Uploads/" + upload.Bestand);
-
-            //if (System.IO.File.Exists(fullPath))
-            //{
-            //    System.IO.File.Delete(fullPath);
-            //}
+            var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(upload.Bestand, 13)));
+            string fullPath = Server.MapPath("~/Uploads/" + filename);
 
             // Get the contentType of file
             var mimeType = MimeMapping.GetMimeMapping(download.Upload.Bestand);
@@ -103,6 +102,10 @@ namespace BluedeskUpload.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DownloadId,UploadId")] Download download)
         {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            download.Gebruiker = currentUser;
+
             if (ModelState.IsValid)
             {
                 db.Downloads.Add(download);

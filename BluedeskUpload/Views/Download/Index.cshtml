@@ -14,7 +14,7 @@
 {
     <p>
         @Html.TextBox("SearchString")
-        <input type="submit" value="Zoek" id="zoek" />
+        <input type="submit" value="Search" id="zoek" />
     </p>
 }
 
@@ -24,19 +24,19 @@
             @Html.ActionLink("Datum", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Upload.Bestand)
+            @Html.ActionLink("File", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.ActionLink("Omschrijving", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.DisplayNameFor(model => model.Upload.Omschrijving)
         </th>
         <th>
-            @Html.ActionLink("Bedrijfsnaam", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.DisplayNameFor(model => model.Upload.Bedrijfsnaam)
         </th>
         <th>
-            @Html.ActionLink("Naam", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.DisplayNameFor(model => model.Upload.Naam)
         </th>
         <th>
-            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.DisplayNameFor(model => model.Upload.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Upload.Telefoon)
@@ -46,36 +46,39 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Upload.Datum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Upload.Bestand)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Upload.Omschrijving)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Upload.Bedrijfsnaam)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Upload.Naam)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Upload.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Upload.Telefoon)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.DownloadId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.DownloadId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.DownloadId })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload.Bestand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload.Omschrijving)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload.Bedrijfsnaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload.Telefoon)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.DownloadId }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.DownloadId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DownloadId })
+            </td>
+        </tr>
     }
 
 </table>
 
-<input type="button" value="Back to list" id="download" onclick="location.href='@Url.Action("BackToIndex", "Download")'" />
+@if (!string.IsNullOrWhiteSpace(ViewBag.SearchString))
+{
+    <input type="button" value="Back to list" id="back" onclick="location.href='@Url.Action("BackToIndex", "Upload")'" />
+}
