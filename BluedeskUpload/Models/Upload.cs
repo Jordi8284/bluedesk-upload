@@ -14,7 +14,7 @@ namespace BluedeskUpload.Models
         public int UploadId { get; set; }
         public ApplicationUser Gebruiker { get; set; }
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Datum { get; set; }
         [DisplayName("File")]
         [DataType(DataType.Upload)]

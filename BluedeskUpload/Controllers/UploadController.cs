@@ -164,7 +164,6 @@ namespace BluedeskUpload.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UploadId,Datum,Bestand,Omschrijving,Bedrijfsnaam,Naam,Email,Telefoon")] Upload upload)
         {
-
             if (ModelState.IsValid)
             {
                 db.Entry(upload).State = EntityState.Modified;
@@ -195,6 +194,13 @@ namespace BluedeskUpload.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Upload upload = db.Uploads.Find(id);
+            var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(upload.Bestand, 13)));
+            string fullPath = Server.MapPath("~/Uploads/" + filename);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+
             db.Uploads.Remove(upload);
             db.SaveChanges();
             return RedirectToAction("Index");

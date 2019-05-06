@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Datum, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBox("Datum", DateTime.Today, new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;"})
+                @Html.TextBox("Datum", DateTime.Today, "{0:dd/MM/yy}", new { @readonly = "readonly", @style = "border-radius: 4px; border: 1px solid #ccc; width: 100%;"})
                 @Html.ValidationMessageFor(model => model.Datum, "", new { @class = "text-danger" })
             </div>
         </div>
