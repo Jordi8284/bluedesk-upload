@@ -208,14 +208,6 @@
     <Content Include="Images\Bluedesklogo.png" />
     <Content Include="package.json" />
     <Content Include="package-lock.json" />
-    <Content Include="Uploads\14041_plattegrond-bospop-2011_small.gif" />
-    <Content Include="Uploads\146e678dbd97fd39254083cf1b0d02ec.jpg" />
-    <Content Include="Uploads\3-wat-lijkt-je-leuk-om-te-doen-met-de-klas-aan-het-begin-van-het-nieuwe.png" />
-    <Content Include="Uploads\37.jpg" />
-    <Content Include="Uploads\802full-elvis-presley.jpg" />
-    <Content Include="Uploads\Actors.xml" />
-    <Content Include="Uploads\bella-thorn-pink-hair.jpg" />
-    <Content Include="Uploads\dbo.Helloworld.sql" />
     <Content Include="webpack.common.js" />
     <Content Include="webpack.dev.js" />
     <Content Include="webpack.prod.js" />
@@ -226,12 +218,6 @@
     <None Include="Properties\PublishProfiles\BluedeskUpload - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\BluedeskUpload2 - Web Deploy.pubxml" />
     <Content Include="tsconfig.json" />
-    <Content Include="Uploads\4. Contract deelnemer Erasmus+ subsidie Call 2016 KA1.docx" />
-    <Content Include="Uploads\ASL logboek.xlsx" />
-    <Content Include="Uploads\belbin mateo.docx" />
-    <Content Include="Uploads\Deelvraag 1.docx" />
-    <Content Include="Uploads\Eind werkstuk Silicon Valley.docx" />
-    <Content Include="Uploads\WildWanderlust-Personal.ttf" />
     <Content Include="src\index.less" />
     <Content Include="Views\Download\Download.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -292,6 +278,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
