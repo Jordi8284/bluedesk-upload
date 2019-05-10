@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BluedeskUpload.Controllers
 {
+    [Authorize]
     public class DownloadController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
