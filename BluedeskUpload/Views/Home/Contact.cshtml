@@ -1,19 +1,99 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿<div class="jumbotron">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+        <h2 style="text-align:center"><b>How to use it</b></h2><br />
+        <button class="accordion"><img src="~/Images/One.png" id="Number" /><b>Register</b></button>
+        <div class="panel">
+            <p>
+                Step 1: Go to "@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })" page <br />
+                Step 2: Enter your details <br />
+                Step 3: Select your user role (extern: "Uploader" / intern: "Downloader") <br />
+                Step 4: Click on "Register" and you are registered <br />
+                Step 5: Log in with your account details on the "@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })" page
+            </p>
+        </div>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <button class="accordion"><img src="~/Images/Two.png" id="Number" /><b>Log in</b></button>
+        <div class="panel">
+            <p>
+                Step 1: Go to "@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })" page <br />
+                Step 2: Enter your details or select "@Html.ActionLink("Register as a new user", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })" <br />
+                Step 3: Select "Remember me" if you want to stay logged in <br />
+                Step 4: Click on "Log in" and you are logged in
+            </p>
+        </div>
 
-<link href="~/Content/Contact.css" rel="stylesheet" type="text/css" />
+        <button class="accordion"><img src="~/Images/Three.png" id="Number" /><b>Upload</b></button>
+        <div class="panel">
+            <p>
+                Step 1: Go to "@Html.ActionLink("Upload", "Index", "Upload")" page <br />
+                Step 2: Select "Create New" <br />
+                Step 3: Select a file to upload and enter your details <br />
+                Step 4: Click on "Create" and wait until the upload has finished <br />
+                Step 5: Click on "Back to List" to see your upload at the index page <br />
+                Step 6: Click on "Edit" to edit your upload description <br />
+                Step 7: Click on "Detail" to get your upload details <br />
+                Step 8: Click on "Delete" to delete your upload <br />
+                Step 9: Enter a keyword to search for and click on "Search" <br />
+                Step 10: Click on "Date" or "File" at the index page to order it by name or date
+            </p>
+        </div>
+
+        <button class="accordion"><img src="~/Images/Four.png" id="Number" /><b>Download</b></button>
+        <div class="panel">
+            <p>
+                Step 1: Go to "@Html.ActionLink("Download", "Index", "Download")" page <br />
+                Step 2: Select "Create New" <br />
+                Step 3: Select a upload <br />
+                Step 4: Click on "Create" to see the upload at the index page <br />
+                Step 5: Click on "Details" to get the upload details and to download the upload <br />
+                Step 6: Click on "Delete" to delete the upload from the index page <br />
+                Step 7: Enter a keyword to search for and click on "Search" <br />
+                Step 8: Click on "Date" or "File" at the index page to order it by name or date
+            </p>
+        </div>
+
+        <button class="accordion"><img src="~/Images/Five.png" id="Number" /><b>Contact</b></button>
+        <div class="panel">
+            <p>Contact us at <a href="mailto:example@gmail.com">example@gmail.com</a> for any questions</p>
+        </div>
+
+        <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight){
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+                });
+            }
+        </script>
+
+        <script>
+            (function ($) {
+                $('a[href^=mailto]').each(function () {
+                    var href = $(this).attr('href');
+                    $(this).click(function () {
+                        var t;
+                        var self = $(this);
+
+                        $(window).blur(function () {
+                            // The browser apparently responded, so stop the timeout.
+                            clearTimeout(t);
+                        });
+
+                        t = setTimeout(function () {
+                            // The browser did not respond after 500ms, so open an alternative URL.
+                            document.location.href = '...';
+                        }, 500);
+                    });
+                });
+            })(jQuery);
+        </script>
+</div>

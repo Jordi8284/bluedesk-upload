@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -13,11 +14,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BluedeskUpload.Controllers
 {
-    [Authorize(Roles="Uploader")]
     public class UploadController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Customer")]
         // GET: Upload
         public ActionResult Index(string sortOrder, string searchString, HttpPostedFileBase postedFile)
         {
@@ -86,13 +87,42 @@ namespace BluedeskUpload.Controllers
             return View(upload);
         }
 
+        // GET: Upload
+        public ActionResult Download(int? id)
+        {
+            Upload upload = db.Uploads.Find(id);
+            var filename = Encryption.Encrypt(upload.Bestand, 13);
+            string fullPath = Server.MapPath("~/Uploads/" + filename);
+
+            // Get the contentType of file
+            var mimeType = MimeMapping.GetMimeMapping(upload.Bestand);
+
+            // Return the file for download
+            return File(fullPath, mimeType, upload.Bestand);
+        }
+
+        [Authorize(Roles = "Customer, Admin")]
         // GET: Upload/Create
         public ActionResult Create()
         {
+            var upload = new UploadView();
+            upload.Gebruikers = LoadUsers();
 
-            return View();
+            return View(upload);
         }
 
+        private IEnumerable<SelectListItem> LoadUsers()
+        {
+            var list = new List<SelectListItem>();
+            foreach (var user in db.Users.Where(u => u.UserRole == "Customer"))
+            {
+                list.Add(new SelectListItem() { Text = user.UserName, Value = user.UserName });
+            }
+
+            return list;
+        }
+
+        [Authorize(Roles = "Customer, Admin")]
         // POST: Upload/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -108,7 +138,7 @@ namespace BluedeskUpload.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(postedFile.FileName, 13)));
+                var filename = Encryption.Encrypt(postedFile.FileName, 13);
                 postedFile.SaveAs(path + Path.GetFileName(filename));
                 ViewBag.Message = "File uploaded successfully.";
             }
@@ -118,26 +148,12 @@ namespace BluedeskUpload.Controllers
             upload.Gebruiker = currentUser;
             upload.Bestand = postedFile.FileName;
 
-            if (postedFile != null)
-            {
-                string path = Server.MapPath("~/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(postedFile.FileName, 13)));
-                postedFile.SaveAs(path + Path.GetFileName(filename));
-                ViewBag.Message = "File uploaded successfully.";
-            }
-
             if (ModelState.IsValid)
             {
                 db.Uploads.Add(upload);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
 
             return View(upload);
         }
@@ -194,7 +210,7 @@ namespace BluedeskUpload.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Upload upload = db.Uploads.Find(id);
-            var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(upload.Bestand, 13)));
+            var filename = Encryption.Encrypt(upload.Bestand, 13);
             string fullPath = Server.MapPath("~/Uploads/" + filename);
             if (System.IO.File.Exists(fullPath))
             {

@@ -19,5 +19,18 @@ namespace BluedeskUpload
 
             return outStringBuild.ToString();
         }
+
+        public static string Encrypt(string content, int encryptionKey)
+        {
+            var result = EncryptDecrypt(content, encryptionKey);
+
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(result)).Replace("/", "_");
+        }
+
+        public static string Decrypt(string content, int encryptionKey)
+        {
+            var result = Encoding.UTF8.GetString(Convert.FromBase64String(content.Replace("/", "_")));
+            return EncryptDecrypt(result, encryptionKey);
+        }
     }
 }

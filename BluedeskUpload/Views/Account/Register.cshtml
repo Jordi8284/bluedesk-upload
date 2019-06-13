@@ -32,8 +32,8 @@
     <div class="form-group">
         @Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.RadioButtonFor(m => m.UserRole, "Uploader", new { @class = "radio-inline" })@Html.Label("Uploader")
-            @Html.RadioButtonFor(m => m.UserRole, "Downloader", new { @class = "radio-inline", @style = "margin-left: 20px;" })@Html.Label("Downloader")
+            @Html.RadioButtonFor(m => m.UserRole, "Customer", new { @class = "radio-inline" })@Html.Label("Customer")
+            @Html.RadioButtonFor(m => m.UserRole, "Admin", new { @class = "radio-inline", @style = "margin-left: 20px;" })@Html.Label("Admin")
         </div>
     </div>
     <div class="form-group">
