@@ -145,6 +145,16 @@ namespace BluedeskUpload.Controllers
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var currentUser = manager.FindById(User.Identity.GetUserId());
+
+            // Admin heeft een gebruiker gekozen?
+            if (!string.IsNullOrEmpty(Request.Form["Gebruiker.UserRole"]))
+            {
+                var user = Request.Form["Gebruiker.UserRole"];
+
+                // Wanner niet gevonden koppelen aan admin
+                currentUser = db.Users.Where(u => u.UserName == user).FirstOrDefault() ?? currentUser;
+            }
+
             upload.Gebruiker = currentUser;
             upload.Bestand = postedFile.FileName;
 
