@@ -21,7 +21,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Datum", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
             @Html.ActionLink("File", "Index", new { sortOrder = ViewBag.NameSortParm })
@@ -80,5 +80,5 @@
 
 @if (!string.IsNullOrWhiteSpace(ViewBag.SearchString))
 {
-    <input type="button" value="Back to list" id="back" onclick="location.href='@Url.Action("BackToIndex", "Upload")'" />
+    <input type="button" value="Back to list" id="back" onclick="location.href='@Url.Action("BackToIndex", "Download")'" />
 }

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-
+using System.Web.Mvc;
 
 namespace BluedeskUpload.Models
 {
@@ -13,6 +13,8 @@ namespace BluedeskUpload.Models
         [Key]
         public int UploadId { get; set; }
         public ApplicationUser Gebruiker { get; set; }
+        public IEnumerable<SelectListItem> Gebruikers;
+        [DisplayName("Date")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Datum { get; set; }
@@ -26,7 +28,7 @@ namespace BluedeskUpload.Models
         [DisplayName("Name")]
         public string Naam { get; set; }
         public string Email { get; set; }
-        [DisplayName("Telephone")]
+        [DisplayName("Phone number")]
         public string Telefoon { get; set; }
     }
 }

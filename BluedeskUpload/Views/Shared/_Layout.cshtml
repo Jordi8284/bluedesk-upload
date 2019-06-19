@@ -23,15 +23,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (Request.IsAuthenticated && User.IsInRole("Uploader"))
+                    <img src="~/Images/Bluedesk.png" id="Bluedesk" /><li>@Html.ActionLink("About", "About", "Home")</li>
+                    <img src="~/Images/Bluedesk.png" id="Bluedesk" /><li>@Html.ActionLink("Help", "Contact", "Home")</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Customer"))
                     {
-                        <li>@Html.ActionLink("Upload", "Index", "Upload")</li>
+                        <img src="~/Images/Bluedesk.png" id="Bluedesk" /><li>@Html.ActionLink("Upload", "Index", "Upload")</li>
                     }
-                    @if (Request.IsAuthenticated && User.IsInRole("Downloader"))
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Download", "Index", "Download")</li>
+                        <img src="~/Images/Bluedesk.png" id="Bluedesk" /><li>@Html.ActionLink("Download", "Index", "Download")</li>
+                        <img src="~/Images/Bluedesk.png" id="Bluedesk" /><li>@Html.ActionLink("Upload", "Create", "Upload")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
