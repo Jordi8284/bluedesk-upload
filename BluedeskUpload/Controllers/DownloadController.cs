@@ -78,7 +78,6 @@ namespace BluedeskUpload.Controllers
             Download download = db.Downloads.Find(id);
             Upload upload = db.Uploads.Find(download.UploadId);
             var filename = Encryption.Encrypt(upload.Bestand, 13);
-            // var filename = Convert.ToBase64String(Encoding.UTF8.GetBytes(Encryption.EncryptDecrypt(upload.Bestand, 13)));
             string fullPath = Server.MapPath("~/Uploads/" + filename);
 
             // Get the contentType of file

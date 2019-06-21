@@ -70,7 +70,6 @@
 </div>
 
 <p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.DownloadId }) |*@
     @Html.ActionLink("Back to List", "Index") |
     <input type="button" value="Download" id="download" onclick="location.href='@Url.Action("Download", "Download", new { id = Model.DownloadId } )'" />
 </p>
